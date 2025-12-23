@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Full Stack Calculator</title>
+</head>
+<body>
+
+<h2>Full Stack Calculator</h2>
+
+<input type="number" id="a" placeholder="Enter first number" />
+<br><br>
+
+<input type="number" id="b" placeholder="Enter second number" />
+<br><br>
+
+<button onclick="calculate('add')">Add</button>
+<button onclick="calculate('sub')">Subtract</button>
+<button onclick="calculate('mul')">Multiply</button>
+<button onclick="calculate('div')">Divide</button>
+
+<br><br>
+
+<h3>Result: <span id="result"></span></h3>
+
+<script>
+    function calculate(operation) {
+        let a = document.getElementById("a").value;
+        let b = document.getElementById("b").value;
+
+        fetch(`/calc/${operation}?a=${a}&b=${b}`)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("result").innerText = data;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    }
+</script>
+
+</body>
+</html>
